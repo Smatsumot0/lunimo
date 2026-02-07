@@ -1,7 +1,20 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
 # compiled output
 /dist
-/node_modules
+
+# next.js
+/.next/
+/out/
+
+# production
 /build
+
+# misc
+*.pem
 
 # Logs
 logs
@@ -40,7 +53,14 @@ lerna-debug.log*
 .env.development.local
 .env.test.local
 .env.production.local
-.env.local
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
 
 # temp directory
 .temp
