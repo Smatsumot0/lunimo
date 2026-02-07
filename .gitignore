@@ -3,9 +3,6 @@
 /.pnp
 .pnp.js
 
-# compiled output
-/dist
-
 # next.js
 /.next/
 /out/
