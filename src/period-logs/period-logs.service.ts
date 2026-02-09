@@ -5,35 +5,32 @@ import { PrismaService } from 'prisma/prisma.service';
 export class PeriodLogsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  // TODO: ユーザーIDは認証機能実装後に動的に取得するように修正する
-  private readonly userId = 'dev-user';
-
-  async list() {
+  async list(userId: string) {
     return this.prisma.periodLog.findMany({
-      where: { userId: this.userId },
+      where: { userId },
       orderBy: { startDate: 'desc' },
     });
   }
 
-  async create(startDate: string) {
+  async create(userId: string, startDate: string) {
     return this.prisma.periodLog.create({
       data: {
-        userId: this.userId,
+        userId,
         startDate: new Date(startDate),
       },
     });
   }
 
-  async setEndDate(id: string, endDate: string) {
+  async setEndDate(userId: string, id: string, endDate: string) {
     return this.prisma.periodLog.update({
-      where: { id },
+      where: { userId, id },
       data: { endDate: new Date(endDate) },
     });
   }
 
-  async remove(id: string) {
+  async remove(userId: string, id: string) {
     return this.prisma.periodLog.delete({
-      where: { id },
+      where: { userId, id },
     });
   }
 }
