@@ -1,9 +1,8 @@
-import { AuthUser } from 'src/auth/jwt.strategy';
-
 declare global {
   namespace Express {
-    interface Request {
-      user?: AuthUser;
+    interface User {
+      id: string;
+      email: string;
     }
   }
 }

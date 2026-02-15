@@ -2,14 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-type JwtPayload = {
-  sub?: string;
-  id?: string;
+export type AuthUser = {
+  id: string;
   email: string;
 };
 
-export type AuthUser = {
-  id: string;
+type JwtPayload = {
+  sub: string;
   email: string;
 };
 
@@ -17,16 +16,12 @@ export type AuthUser = {
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
-      jwtFromRequest: ExtractJwt.fromExtractors([
-        (req) => req?.cookies?.lunimo_token ?? null,
-      ]),
-      ignoreExpiration: false,
-      secretOrKey: process.env.JWT_SECRET ?? 'dev-secret-change-me',
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: process.env.JWT_SECRET!,
     });
   }
 
-  validate(payload: JwtPayload): AuthUser {
-    const id = payload.sub ?? payload.id;
-    return { id: id ?? '', email: payload.email };
+  validate(payload: JwtPayload) {
+    return { userId: payload.sub, email: payload.email };
   }
 }
