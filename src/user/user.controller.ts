@@ -12,7 +12,7 @@ import { JwtAuthGuard } from 'src/auth/jwt.guard';
 import { User } from '@prisma/client';
 
 @UseGuards(JwtAuthGuard)
-@Controller('period-logs')
+@Controller('user')
 export class UserController {
   constructor(private readonly service: UserService) {}
 
