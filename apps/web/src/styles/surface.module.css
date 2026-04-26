@@ -1,0 +1,11 @@
+.surface {
+  padding: var(--spacing-md);
+  background-color: var(--color-glass-bg);
+  border: solid 1px var(--color-glass-border);
+  border-right-color: var(--color-glass-border-soft);
+  border-bottom-color: var(--color-glass-border-soft);
+  border-radius: var(--radius-sm);
+  --webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 8px 24px var(--color-glass-shadow);
+}

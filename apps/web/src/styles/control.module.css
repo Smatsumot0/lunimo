@@ -1,0 +1,15 @@
+.control {
+  background-color: var(--color-glass-control-bg);
+  border: 1px solid var(--color-glass-control-border);
+  border-right-color: var(--color-glass-control-border-soft);
+  border-bottom-color: var(--color-glass-control-border-soft);
+  border-radius: var(--radius-lg);
+
+  -webkit-backdrop-filter: var(--glass-control-blur);
+  backdrop-filter: var(--glass-control-blur);
+  box-shadow:
+    inset 0 1px 0 var(--color-glass-control-highlight),
+    0 10px 28px var(--color-glass-control-shadow);
+
+  transition: var(--transition-control);
+}

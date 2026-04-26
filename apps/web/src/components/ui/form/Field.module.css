@@ -1,0 +1,15 @@
+.field {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: span 2;
+}
+
+.label {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: span 2;
+}
+
+.input-only {
+  grid-column: span 2;
+}

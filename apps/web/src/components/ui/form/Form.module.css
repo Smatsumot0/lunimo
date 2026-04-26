@@ -1,0 +1,31 @@
+.root {
+  display: grid;
+  gap: var(--spacing-sm);
+}
+.form {
+  display: grid;
+  gap: var(--spacing-xl);
+}
+.body {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+.fields {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-md);
+}
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+}
+
+/* direction horizontal */
+.horizontal-body {
+  grid-template-columns: 1fr max-content;
+  /* gap: spacing.md; */
+}
+.horizontal-fields {
+  /* gridTemplateColumns: auto; */
+}

@@ -1,0 +1,15 @@
+.unit {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: baseline;
+  color: var(--color-text-primary);
+  font-size: 0.7em;
+}
+
+.value {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: baseline;
+  color: var(--color-text-secondary);
+  font-size: 1.5em;
+}

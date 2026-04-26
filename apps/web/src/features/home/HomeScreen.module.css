@@ -1,0 +1,4 @@
+.home-screen {
+  display: grid;
+  gap: var(--spacing-md);
+}

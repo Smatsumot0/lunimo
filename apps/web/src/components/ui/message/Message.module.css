@@ -1,0 +1,21 @@
+.message {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-xs);
+}
+
+.info {
+  color: var(--color-text-primary);
+}
+
+.warning {
+  color: var(--color-danger);
+}
+
+.error {
+  color: var(--color-danger);
+}
+
+.success {
+  color: var(--color-text-primary);
+}

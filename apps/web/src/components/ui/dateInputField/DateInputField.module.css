@@ -1,0 +1,88 @@
+.date-input {
+  position: relative;
+}
+
+/* Popover内のDayPicker全体 */
+.daypicker {
+  /* react-day-picker のCSS変数を Lunimo tokens へマップ */
+  --rdp-accent-color: var(--color-primary);
+  --rdp-accent-background-color: rgba(234, 171, 184, 0.18); /* primary薄め */
+  --rdp-outline: 2px solid var(--color-glass-control-focus);
+  --rdp-outline-selected: 2px solid var(--color-glass-control-focus);
+
+  --rdp-background-color: transparent;
+  --rdp-color: var(--color-text-primary);
+
+  --rdp-cell-size: 40px;
+  --rdp-caption-font-size: var(--font-size-md);
+  --rdp-nav-button-height: 32px;
+  --rdp-nav-button-width: 32px;
+
+  --rdp-border-radius: var(--radius-lg);
+
+  color: var(--color-text-primary);
+}
+
+/* 月表示のヘッダ（caption） */
+.daypicker :global(.rdp-caption_label) {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+/* ナビゲーションボタン */
+.daypicker :global(.rdp-nav button svg) {
+  fill: var(--color-text-primary);
+  transition: var(--transition-control);
+}
+
+.daypicker :global(.rdp-nav button:hover svg) {
+  fill: var(--color-text-secondary);
+}
+
+/* 曜日行 */
+.daypicker :global(.rdp-weekday) {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* 各日ボタン */
+.daypicker :global(.rdp-day_button) {
+  border-radius: var(--radius-md);
+  transition: var(--transition-control);
+}
+
+/* hover（選択されてない日） */
+.daypicker :global(.rdp-day:not(.rdp-selected) .rdp-day_button:hover) {
+  background: rgba(234, 171, 184, 0.14);
+}
+
+/* 今日 */
+.daypicker :global(.rdp-today .rdp-day_button) {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+/* 選択中 */
+.daypicker :global(.rdp-selected .rdp-day_button) {
+  background: rgba(234, 171, 184, 0.32);
+  color: var(--color-text-primary);
+  border: thin solid var(--color-glass-primary-border);
+  box-shadow: 0 10px 22px var(--color-glass-control-shadow);
+  font-weight: var(--font-weight-normal);
+}
+
+/* フォーカスリング（キーボード操作） */
+.daypicker :global(.rdp-day_button:focus-visible) {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-glass-control-focus-ring);
+}
+
+/* 任意：土日色分けしたい場合（控えめ） */
+.daypicker :global(.rdp-weekday:nth-child(1)) {
+  color: var(--color-weekend-sunday);
+}
+
+.daypicker :global(.rdp-weekday:nth-child(7)) {
+  color: var(--color-weekend-saturday);
+}

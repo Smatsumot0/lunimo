@@ -1,0 +1,31 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.small {
+  --logo-height: 24px;
+}
+
+.medium {
+  --logo-height: 32px;
+}
+
+.large {
+  --logo-height: 40px;
+}
+
+.image {
+  display: block;
+  height: var(--logo-height);
+  width: auto;
+}

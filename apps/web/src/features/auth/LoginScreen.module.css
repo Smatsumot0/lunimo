@@ -1,0 +1,20 @@
+.page {
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 100px;
+}
+
+.page .main {
+  max-width: 450px;
+}
+
+.surface {
+  display: grid;
+  gap: var(--spacing-xl);
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+}

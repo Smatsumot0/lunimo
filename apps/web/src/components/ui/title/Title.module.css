@@ -1,0 +1,19 @@
+/*===== Title =====*/
+.title {
+  margin: 0;
+}
+
+h1.title {
+}
+
+h2.title {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+h3.title {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}

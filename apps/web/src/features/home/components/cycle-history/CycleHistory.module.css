@@ -1,0 +1,36 @@
+.cycle-history {
+  display: grid;
+  gap: var(--spacing-sm);
+}
+
+.table {
+  display: grid;
+  grid-template-columns: 1.5fr 1.5fr 1fr 1fr;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: span 4;
+}
+
+.header-cell {
+  padding: 0 0 var(--spacing-xs);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: span 4;
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-xs);
+  border: none;
+}
+
+.cell-has-left-border {
+  border-left: solid thin var(--color-border);
+}

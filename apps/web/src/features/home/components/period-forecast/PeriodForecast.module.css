@@ -1,0 +1,15 @@
+.period-forecast {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  gap: var(--spacing-md);
+  justify-content: center;
+}
+
+.period-status {
+  display: grid;
+  gap: var(--spacing-xs);
+}
+
+.period-status-title {
+  font-size: 0.85rem;
+}

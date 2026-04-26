@@ -1,0 +1,13 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-index-backdrop);
+  background: transparent;
+  touch-action: manipulation;
+}
+
+.panel {
+  position: absolute;
+  top: calc(100% + var(--spacing-sm));
+  z-index: var(--z-index-modal);
+}
