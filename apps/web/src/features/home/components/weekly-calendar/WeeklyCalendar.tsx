@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 import { addDays, format, isToday } from "date-fns"
 import { ja } from "date-fns/locale"
 import styles from "./WeeklyCalendar.module.css"

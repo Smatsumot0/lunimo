@@ -5,7 +5,7 @@ export type NextPeriodCountdownProps = {
 }
 
 export function NextPeriodCountdown({ days }: NextPeriodCountdownProps) {
-  if (!days) return <Value></Value>
+  if (days === null) return <Value></Value>
 
   return (
     <Value>

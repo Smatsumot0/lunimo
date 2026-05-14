@@ -16,7 +16,7 @@ export async function HomeScreen() {
     <div className={styles["home-screen"]}>
       <Section>
         {/* 生理予定日・カウントダウン */}
-        <PeriodForecast />
+        <PeriodForecast logs={periodLogs} />
         {/* カレンダー */}
         <WeeklyCalendar />
       </Section>
@@ -28,7 +28,7 @@ export async function HomeScreen() {
       </Section>
       <Section>
         {/* 生理周期 */}
-        <CycleStatus />
+        <CycleStatus logs={periodLogs} />
         {/* 履歴 */}
         <CycleHistory logs={periodLogs} />
       </Section>

@@ -1,13 +1,16 @@
-"use client"
 import { PeriodStatus } from "./PeriodStatus"
-import { useState } from "react"
 import { NextPeriodDate } from "./NextPeriodDate"
 import { NextPeriodCountdown } from "./NextPeriodCountdown"
 import styles from "./PeriodForecast.module.css"
+import { PeriodLog } from "@/lib"
+import { getNextPeriodForecast } from "../../lib/periodStats"
 
-export function PeriodForecast() {
-  const [nextDate, setNextDate] = useState<string | null>("2025-02-10")
-  const [daysUntil, setDaysUntil] = useState<number | null>(15)
+export type PeriodForecastProps = {
+  logs: PeriodLog[]
+}
+
+export function PeriodForecast({ logs }: PeriodForecastProps) {
+  const { nextDate, daysUntil } = getNextPeriodForecast(logs)
 
   return (
     <section aria-label="生理予定日" className={styles["period-forecast"]}>

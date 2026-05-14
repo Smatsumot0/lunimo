@@ -1,7 +1,6 @@
 import { CycleHistoryCell } from "./CycleHistoryCell"
 import { CycleHistoryRow } from "./CycleHistoryRow"
 import styles from "./CycleHistory.module.css"
-import { Title } from "@/components"
 
 const titles = ["開始日", "終了日", "期間", "周期"]
 export function CycleHistoryHeader() {
