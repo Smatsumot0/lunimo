@@ -13,6 +13,12 @@ export class UserService {
   async list() {
     return this.prisma.user.findMany({
       orderBy: { id: 'desc' },
+      select: {
+        id: true,
+        email: true,
+        createdAt: true,
+        updatedAt: true,
+      },
     });
   }
 

@@ -21,6 +21,8 @@ class LoginDto {
   password!: string;
 }
 
+class SignupDto extends LoginDto {}
+
 @Controller('auth')
 export class AuthController {
   constructor(private readonly service: AuthService) {}
@@ -38,8 +40,8 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Post('signup')
-  async signup(@Body() body: { email: string; password: string }) {
-    return this.service.signup(body.email, body.password);
+  async signup(@Body() dto: SignupDto) {
+    return this.service.signup(dto.email, dto.password);
   }
 
   @UseGuards(JwtAuthGuard)

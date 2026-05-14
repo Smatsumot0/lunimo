@@ -12,6 +12,17 @@ import { PeriodLogsService } from './period-logs.service';
 import { JwtAuthGuard } from 'src/auth/jwt.guard';
 import type { AuthUser } from 'src/auth/jwt.strategy';
 import { CurrentUser } from 'src/auth/user.decorator';
+import { IsDateString } from 'class-validator';
+
+class CreatePeriodLogDto {
+  @IsDateString()
+  startDate!: string;
+}
+
+class SetPeriodLogEndDateDto {
+  @IsDateString()
+  endDate!: string;
+}
 
 @UseGuards(JwtAuthGuard)
 @Controller('period-logs')
@@ -26,7 +37,7 @@ export class PeriodLogsController {
   @Post()
   async create(
     @CurrentUser() user: AuthUser,
-    @Body() body: { startDate: string },
+    @Body() body: CreatePeriodLogDto,
   ) {
     return this.service.create(user.id, body.startDate);
   }
@@ -35,7 +46,7 @@ export class PeriodLogsController {
   async setEndDate(
     @CurrentUser() user: AuthUser,
     @Param('id') id: string,
-    @Body() body: { endDate: string },
+    @Body() body: SetPeriodLogEndDateDto,
   ) {
     return this.service.setEndDate(user.id, id, body.endDate);
   }
