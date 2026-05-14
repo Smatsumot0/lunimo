@@ -18,7 +18,14 @@ export async function createPeriodLog(startDate: string) {
 }
 
 // PATCH
-export async function setEndDate(endDate: string) {
-  await api.patch<void, { endDate: string }>(PATH, { endDate })
+export async function updatePeriodLog(
+  id: string,
+  patch: { startDate?: string; endDate?: string },
+) {
+  await api.patch<void, { startDate?: string; endDate?: string }>(
+    `${PATH}/${id}`,
+    patch,
+  )
+  revalidatePath("/home")
 }
 

@@ -1,15 +1,18 @@
 import { useState } from "react"
 import { PeriodLog } from "@/lib"
+import { updatePeriodLogAction } from "@/app/(authed)/home/actions"
+import { useRouter } from "next/navigation"
 
 export type CycleLogPatch = {
   startDate?: string
-  endDate?: string | null
+  endDate?: string
 }
 
 type UseCycleHistoryArgs = {
   logs: PeriodLog[]
 }
 export function useCycleHistory({ logs }: UseCycleHistoryArgs) {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -26,7 +29,21 @@ export function useCycleHistory({ logs }: UseCycleHistoryArgs) {
 
   const selected = selectedId ? (logs.find((log) => log.id === selectedId) ?? null) : null
 
-  function handleEdit(patch: CycleLogPatch) {}
+  async function handleEdit(patch: CycleLogPatch) {
+    if (!selectedId) return
+
+    setLoading(true)
+    setError(null)
+
+    try {
+      await updatePeriodLogAction(selectedId, patch)
+      router.refresh()
+    } catch {
+      setError("履歴の更新に失敗しました。")
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return {
     open,

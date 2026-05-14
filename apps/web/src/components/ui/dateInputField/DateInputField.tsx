@@ -52,7 +52,6 @@ export function DateInputField({
   }
 
   function handleFocus() {
-    console.log("focus", open)
     openPicker()
     onFocus?.()
   }
@@ -64,7 +63,7 @@ export function DateInputField({
 
   return (
     <div className={clsx(styles["date-input"], className)}>
-      <Input value={textValue} onFocus={handleFocus} {...props} />
+      <Input value={textValue} disabled={disabled} onFocus={handleFocus} {...props} />
       <Popover open={open} onRequestClose={closePicker} ariaLabel="day-picker-popover">
         <DayPicker
           animate

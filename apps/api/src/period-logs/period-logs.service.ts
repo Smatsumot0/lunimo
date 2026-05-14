@@ -21,10 +21,17 @@ export class PeriodLogsService {
     });
   }
 
-  async setEndDate(userId: string, id: string, endDate: string) {
+  async update(
+    userId: string,
+    id: string,
+    patch: { startDate?: string; endDate?: string },
+  ) {
     return this.prisma.periodLog.update({
       where: { userId, id },
-      data: { endDate: new Date(endDate) },
+      data: {
+        ...(patch.startDate ? { startDate: new Date(patch.startDate) } : {}),
+        ...(patch.endDate ? { endDate: new Date(patch.endDate) } : {}),
+      },
     });
   }
 

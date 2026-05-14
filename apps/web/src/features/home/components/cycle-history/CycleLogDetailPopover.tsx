@@ -9,7 +9,7 @@ export type CycleLogDetailPopoverPops = {
   loading: boolean
   error: string | null
   onRequestClose: () => void
-  onEdit: (patch: CycleLogPatch) => void
+  onEdit: (patch: CycleLogPatch) => Promise<void>
 }
 
 export function CycleLogDetailPopover({
@@ -31,6 +31,7 @@ export function CycleLogDetailPopover({
     {
       label: "開始日",
       name: "startDate",
+      type: "date",
       inputProps: {
         value: log?.startDate,
         onChange: handleChangeStartDate,
@@ -39,6 +40,7 @@ export function CycleLogDetailPopover({
     {
       label: "終了日",
       name: "endDate",
+      type: "date",
       inputProps: {
         value: log?.endDate,
         onChange: handleChangeEndDate,
