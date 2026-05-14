@@ -26,18 +26,18 @@ export function Popover({
   if (!open) return null
   if (typeof document === "undefined") return null
 
-  const anchoredStyle: React.CSSProperties = () => {
+  const anchoredStyle: React.CSSProperties = (() => {
     if (mode === "anchored") {
       if (!anchorEl) return {}
       const rect = anchorEl.getBoundingClientRect()
       return {
         position: "absolute",
         top: rect.bottom + window.scrollY + 8,
-        left: rect.left + window.screenX,
+        left: rect.left + window.scrollX,
       }
     }
     return {}
-  }
+  })()
 
   function handleBackdropDown() {
     onRequestClose()
