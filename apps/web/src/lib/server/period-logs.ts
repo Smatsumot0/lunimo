@@ -7,8 +7,26 @@ const PATH = "period-logs"
 
 // GET LIST
 export async function getPeriodLogs() {
-  const logs = await api.get<PeriodLog[]>(PATH)
-  return logs
+  try {
+    const logs = await api.get<PeriodLog[]>(PATH)
+    return logs
+  } catch (error) {
+    if (isNextDynamicServerError(error)) {
+      throw error
+    }
+
+    console.error("[period-logs] failed to fetch logs", error)
+    return []
+  }
+}
+
+function isNextDynamicServerError(error: unknown) {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "digest" in error &&
+    error.digest === "DYNAMIC_SERVER_USAGE"
+  )
 }
 
 // POST
