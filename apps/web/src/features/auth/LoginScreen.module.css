@@ -18,3 +18,32 @@
   display: flex;
   justify-content: center;
 }
+
+.links {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  font-size: 0.9rem;
+}
+
+.links a,
+.note a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.links a:hover,
+.note a:hover {
+  text-decoration: underline;
+}
+
+.stack {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.note {
+  margin: 0;
+  text-align: center;
+  font-size: 0.9rem;
+}

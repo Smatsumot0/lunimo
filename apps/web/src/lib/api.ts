@@ -1,10 +1,5 @@
-const BASE_URL = process.env.NEST_API_URL
-
-if (!BASE_URL) {
-  throw new Error("API_BASE_URL is not set")
-}
 export async function signup(email: string, password: string) {
-  const res = await fetch(`/api/auth/signup`, {
+  const res = await fetch(`/api/account/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -13,6 +8,30 @@ export async function signup(email: string, password: string) {
     body: JSON.stringify({ email, password }),
   })
   if (!res.ok) throw new Error("Failed to signup")
+  return res.json()
+}
+
+export async function requestPasswordReset(email: string) {
+  const res = await fetch(`/api/account/password-reset/request`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email }),
+  })
+  if (!res.ok) throw new Error("Failed to request password reset")
+  return res.json()
+}
+
+export async function confirmPasswordReset(token: string, password: string) {
+  const res = await fetch(`/api/account/password-reset/confirm`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token, password }),
+  })
+  if (!res.ok) throw new Error("Failed to reset password")
   return res.json()
 }
 

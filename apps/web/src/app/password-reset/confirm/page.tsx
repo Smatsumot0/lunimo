@@ -1,12 +1,13 @@
 import { Logo, Title } from "@/components"
-import { LoginForm } from "./components/LoginForm"
+import { PasswordResetConfirmForm } from "@/features/auth/components/PasswordResetConfirmForm"
 import mainThemeStyle from "@/styles/main.module.css"
 import surfaceThemeStyle from "@/styles/surface.module.css"
-import styles from "./LoginScreen.module.css"
 import clsx from "clsx"
 import Link from "next/link"
+import { Suspense } from "react"
+import styles from "@/features/auth/LoginScreen.module.css"
 
-export function LoginScreen() {
+export default function PasswordResetConfirmPage() {
   return (
     <div className={styles.page}>
       <main className={clsx(mainThemeStyle.main, styles.main)}>
@@ -16,10 +17,12 @@ export function LoginScreen() {
               <Logo size="large" />
             </Title>
           </header>
-          <LoginForm />
+          <Suspense>
+            <PasswordResetConfirmForm />
+          </Suspense>
           <nav className={styles.links} aria-label="認証メニュー">
+            <Link href="/login">ログイン</Link>
             <Link href="/signup">会員登録</Link>
-            <Link href="/password-reset">パスワードをリセット</Link>
           </nav>
         </section>
       </main>
