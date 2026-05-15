@@ -23,6 +23,21 @@ class LoginDto {
 
 class SignupDto extends LoginDto {}
 
+class RequestPasswordResetDto {
+  @IsEmail()
+  email!: string;
+}
+
+class ConfirmPasswordResetDto {
+  @IsString()
+  @MinLength(1)
+  token!: string;
+
+  @IsString()
+  @MinLength(8)
+  password!: string;
+}
+
 @Controller('auth')
 export class AuthController {
   constructor(private readonly service: AuthService) {}
@@ -38,10 +53,19 @@ export class AuthController {
     return { ok: true };
   }
 
-  @UseGuards(JwtAuthGuard)
   @Post('signup')
   async signup(@Body() dto: SignupDto) {
     return this.service.signup(dto.email, dto.password);
+  }
+
+  @Post('password-reset/request')
+  async requestPasswordReset(@Body() dto: RequestPasswordResetDto) {
+    return this.service.requestPasswordReset(dto.email);
+  }
+
+  @Post('password-reset/confirm')
+  async confirmPasswordReset(@Body() dto: ConfirmPasswordResetDto) {
+    return this.service.confirmPasswordReset(dto.token, dto.password);
   }
 
   @UseGuards(JwtAuthGuard)
