@@ -1,0 +1,11 @@
+:root {
+  --font-family-base: "Noto Sans JP", sans-serif;
+
+  --font-size-sm: 12px;
+  --font-size-md: 14px;
+  --font-size-lg: 18px;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 600;
+}

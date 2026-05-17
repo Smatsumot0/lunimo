@@ -1,0 +1,6 @@
+:root {
+  --z-index-header: 10;
+  --z-index-backdrop: 100;
+  --z-index-modal: 1000;
+  --z-index-toast: 10000;
+}
