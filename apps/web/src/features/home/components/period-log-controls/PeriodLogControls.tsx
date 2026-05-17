@@ -1,7 +1,9 @@
 "use client"
 
-import { Button, ErrorMessage } from "@/components"
+import { ErrorMessage } from "@/components"
 import { PeriodLog } from "@/lib"
+import { PeriodLogActionButtons } from "./components/PeriodLogActionButtons"
+import { PeriodLogStatusControls } from "./components/PeriodLogStatusControls"
 import { usePeriodLogControls } from "./hooks/usePeriodLogControls"
 import styles from "./PeriodLogControls.module.css"
 
@@ -10,24 +12,24 @@ export type PeriodLogControlsProps = {
 }
 
 export function PeriodLogControls({ currentLog }: PeriodLogControlsProps) {
-  const { loading, error, submitStartDate, submitEndDate } = usePeriodLogControls({
-    currentLog,
-  })
+  const { painVolume, setStartDate, setEndDate, changePainVolume, loading, error } =
+    usePeriodLogControls({
+      currentLog,
+    })
 
   return (
     <section className={styles.root}>
-      <div className={styles.actions}>
-        <Button disabled={loading || Boolean(currentLog)} onClick={submitStartDate}>
-          開始
-        </Button>
-        <Button
-          variant="secondary"
-          disabled={loading || !currentLog}
-          onClick={submitEndDate}
-        >
-          終了
-        </Button>
-      </div>
+      <PeriodLogActionButtons
+        canStart={!currentLog}
+        canEnd={Boolean(currentLog)}
+        loading={loading}
+        onStart={setStartDate}
+        onEnd={setEndDate}
+      />
+      <PeriodLogStatusControls
+        painVolume={painVolume}
+        onPainVolumeChange={changePainVolume}
+      />
       {error && <ErrorMessage text={error} />}
     </section>
   )

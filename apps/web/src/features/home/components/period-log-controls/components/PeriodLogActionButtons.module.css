@@ -1,0 +1,9 @@
+.root {
+  display: flex;
+  gap: var(--spacing-lg);
+  justify-content: center;
+}
+
+.root button {
+  width: 100%;
+}

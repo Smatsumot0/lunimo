@@ -1,0 +1,20 @@
+.root {
+  display: grid;
+  gap: var(--spacing-lg);
+  grid-template-columns: 2fr 1fr;
+}
+
+.root > div {
+  display: grid;
+  gap: var(--spacing-sm);
+}
+
+.root dt {
+  font-size: 0.8rem;
+}
+
+.medicine dd {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}

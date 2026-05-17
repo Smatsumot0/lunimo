@@ -1,35 +1,4 @@
 .root {
   display: grid;
-  gap: var(--spacing-sm);
-}
-
-.form {
-  display: grid;
-  grid-template-columns: 1fr max-content;
-  gap: var(--spacing-lg);
-  align-items: center;
-}
-
-.fields {
-  display: grid;
-}
-
-.actions {
-  display: flex;
   gap: var(--spacing-md);
-  justify-content: flex-end;
-}
-
-@media (max-width: 640px) {
-  .form {
-    grid-template-columns: 1fr;
-  }
-
-  .actions {
-    justify-content: stretch;
-  }
-
-  .actions > * {
-    flex: 1;
-  }
 }

@@ -1,8 +1,5 @@
 "use client"
-import {
-  createPeriodLogAction,
-  updatePeriodLogAction,
-} from "@/app/(authed)/home/actions"
+import { createPeriodLogAction, updatePeriodLogAction } from "@/app/(authed)/home/actions"
 import { PeriodLog } from "@/lib"
 import { toISODate } from "@/lib/date"
 import { useRouter } from "next/navigation"
@@ -16,10 +13,11 @@ export function usePeriodLogControls({ currentLog }: UsePeriodLogControlsArgs) {
   const router = useRouter()
   const today = toISODate(new Date())
   const [date, setDate] = useState(today)
+  const [painVolume, setPainVolume] = useState(0)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  async function submitStartDate() {
+  async function setStartDate() {
     if (currentLog) return
 
     setLoading(true)
@@ -35,7 +33,7 @@ export function usePeriodLogControls({ currentLog }: UsePeriodLogControlsArgs) {
     }
   }
 
-  async function submitEndDate() {
+  async function setEndDate() {
     if (!currentLog) return
 
     setLoading(true)
@@ -55,6 +53,18 @@ export function usePeriodLogControls({ currentLog }: UsePeriodLogControlsArgs) {
     setDate(value)
   }
 
-  return { date, submitStartDate, submitEndDate, changeDate, error, loading }
-}
+  function changePainVolume(value: number) {
+    setPainVolume(value)
+  }
 
+  return {
+    date,
+    painVolume,
+    setStartDate,
+    setEndDate,
+    changeDate,
+    changePainVolume,
+    error,
+    loading,
+  }
+}
