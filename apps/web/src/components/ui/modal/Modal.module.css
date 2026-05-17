@@ -1,0 +1,66 @@
+.dialog {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-index-modal);
+  width: 100vw;
+  max-width: none;
+  height: 100vh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.dialog::backdrop {
+  background: transparent;
+}
+
+.surface {
+  width: max-content;
+  max-width: calc(100vw - var(--spacing-md) * 2);
+  transform-origin: top right;
+  will-change: opacity, transform, filter;
+}
+
+.surface[data-state="open"] {
+  animation: modal-emerge 220ms cubic-bezier(0.18, 0.9, 0.28, 1.14) both;
+}
+
+.surface[data-state="closing"] {
+  animation: modal-absorb 180ms cubic-bezier(0.6, 0, 0.95, 0.34) both;
+}
+
+@keyframes modal-emerge {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate(22px, -18px) scale(0.18);
+  }
+
+  70% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate(-2px, 1px) scale(1.03);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes modal-absorb {
+  0% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate(22px, -18px) scale(0.16);
+  }
+}
