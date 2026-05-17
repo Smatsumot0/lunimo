@@ -3,9 +3,9 @@ import { Message } from "./Message"
 
 export type ErrorMessageProps = {
   text: string
-}
+} & React.ComponentProps<"div">
 
-export function ErrorMessage({ text }: ErrorMessageProps) {
-  return <Message variant="error" text={text} icon={<ShieldX />} />
+export function ErrorMessage({ text, ...props }: ErrorMessageProps) {
+  return <Message variant="error" text={text} icon={<ShieldX />} {...props} />
 }
 

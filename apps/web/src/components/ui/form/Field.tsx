@@ -10,9 +10,8 @@ export type FieldProps = {
   label?: string
   type?: inputType
   disabled?: boolean
-  className?: string
   inputProps?: Omit<InputProps, "name" | "disabled">
-}
+} & React.ComponentProps<"div">
 
 export function Field({
   name,
@@ -21,6 +20,7 @@ export function Field({
   disabled,
   className,
   inputProps = {},
+  ...props
 }: FieldProps) {
   const { className: inputClassName } = inputProps
   const mergedInputClassName = clsx(!label && styles["input-only"], inputClassName)
@@ -44,7 +44,7 @@ export function Field({
     )
 
   return (
-    <div className={clsx(styles.field, className)}>
+    <div className={clsx(styles.field, className)} {...props}>
       {label ? (
         <Label text={label} className={styles.label}>
           {inputElement}

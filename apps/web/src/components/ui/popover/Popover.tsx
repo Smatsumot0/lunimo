@@ -12,7 +12,7 @@ export type PopoverProps = {
   panelClassName?: string
   ariaLabel?: string
   anchorEl?: HTMLElement | null
-}
+} & Omit<React.ComponentProps<"div">, "children">
 
 export function Popover({
   open,
@@ -22,6 +22,11 @@ export function Popover({
   panelClassName,
   ariaLabel = "popover",
   anchorEl,
+  className,
+  onMouseDown,
+  onTouchStart,
+  style,
+  ...props
 }: PopoverProps) {
   if (!open) return null
   if (typeof document === "undefined") return null
@@ -47,6 +52,16 @@ export function Popover({
     e.stopPropagation()
   }
 
+  function handlePanelMouseDown(e: React.MouseEvent<HTMLDivElement>) {
+    stopPropagation(e)
+    onMouseDown?.(e)
+  }
+
+  function handlePanelTouchStart(e: React.TouchEvent<HTMLDivElement>) {
+    stopPropagation(e)
+    onTouchStart?.(e)
+  }
+
   return createPortal(
     <>
       <div
@@ -56,11 +71,17 @@ export function Popover({
       ></div>
       <div
         role="dialog"
-        className={clsx(surfaceThemeStyle.surface, styles.panel, panelClassName)}
+        className={clsx(
+          surfaceThemeStyle.surface,
+          styles.panel,
+          panelClassName,
+          className,
+        )}
         aria-label={ariaLabel}
-        onMouseDown={stopPropagation}
-        onTouchStart={stopPropagation}
-        style={anchoredStyle}
+        onMouseDown={handlePanelMouseDown}
+        onTouchStart={handlePanelTouchStart}
+        style={{ ...anchoredStyle, ...style }}
+        {...props}
       >
         {children}
       </div>

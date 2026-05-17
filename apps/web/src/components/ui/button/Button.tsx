@@ -7,13 +7,8 @@ type ButtonVariant = "primary" | "secondary" | "danger"
 
 export type ButtonProps = {
   variant?: ButtonVariant
-  type?: "submit" | "button"
   size?: "large" | "medium" | "small" | "circle"
-  className?: string
-  disabled?: boolean
-  children: React.ReactNode
-  onClick?: () => void
-}
+} & React.ComponentProps<"button">
 
 export function Button({
   variant = "primary",
@@ -24,14 +19,10 @@ export function Button({
   onClick,
   ...props
 }: ButtonProps) {
-  function handleClick() {
-    onClick?.()
-  }
-
   return (
     <button
       type={type}
-      onClick={handleClick}
+      onClick={onClick}
       className={clsx(
         controlThemeStyle.control,
         styles.button,

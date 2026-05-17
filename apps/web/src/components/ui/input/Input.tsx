@@ -5,17 +5,14 @@ import styles from "./Input.module.css"
 import controlThemeStyle from "@/styles/control.module.css"
 
 export type InputProps = {
-  name: string
   value?: string | null
-  placeholder?: string
-  type?: "text" | "password"
-  className?: string
-  readOnly?: boolean
-  disabled?: boolean
   onChange?: (value: string) => void
   onFocus?: () => void
   onBluer?: () => void
-}
+} & Omit<
+  React.ComponentProps<"input">,
+  "onBlur" | "onChange" | "onFocus" | "value"
+>
 
 export function Input({
   value,

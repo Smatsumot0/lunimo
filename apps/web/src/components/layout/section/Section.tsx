@@ -5,12 +5,14 @@ import clsx from "clsx"
 
 type SectionProps = {
   title?: string
-  children: React.ReactNode
-}
+} & React.ComponentProps<"section">
 
-export function Section({ title, children }: SectionProps) {
+export function Section({ title, children, className, ...props }: SectionProps) {
   return (
-    <section className={clsx(surfaceThemeStyle.surface, styles.section)}>
+    <section
+      className={clsx(surfaceThemeStyle.surface, styles.section, className)}
+      {...props}
+    >
       {title && <Title as="h2">{title}</Title>}
       <div className={styles.content}>{children}</div>
     </section>

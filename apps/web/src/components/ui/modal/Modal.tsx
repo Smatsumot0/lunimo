@@ -9,11 +9,10 @@ export type ModalProps = {
   closing?: boolean
   children: React.ReactNode
   ariaLabel: string
-  className?: string
   surfaceClassName?: string
   onClose: () => void
   onExited?: () => void
-}
+} & Omit<React.ComponentProps<"dialog">, "onClose" | "open">
 
 export function Modal({
   open,
@@ -24,11 +23,15 @@ export function Modal({
   surfaceClassName,
   onClose,
   onExited,
+  onClick,
+  ...props
 }: ModalProps) {
   function handleBackdropClick(event: MouseEvent<HTMLDialogElement>) {
     if (event.target === event.currentTarget) {
       onClose()
     }
+
+    onClick?.(event)
   }
 
   function handleAnimationEnd(event: AnimationEvent<HTMLDivElement>) {
@@ -50,6 +53,7 @@ export function Modal({
       onClick={handleBackdropClick}
       aria-label={ariaLabel}
       data-state={state}
+      {...props}
     >
       <div
         className={clsx(surfaceThemeStyle.surface, styles.surface, surfaceClassName)}

@@ -1,9 +1,12 @@
 import styles from "./HomeUi.module.css"
 
 export type ValueProps = {
-  children?: React.ReactNode
-}
+} & React.ComponentProps<"div">
 
-export function Value({ children }: ValueProps) {
-  return <div className={styles.value}>{children}</div>
+export function Value({ children, className, ...props }: ValueProps) {
+  return (
+    <div className={className ? `${styles.value} ${className}` : styles.value} {...props}>
+      {children}
+    </div>
+  )
 }

@@ -1,12 +1,11 @@
-import { Button, ErrorMessage } from "@/components"
+import { Button, ErrorMessage, type ButtonProps } from "@/components"
 import { Field, FieldProps } from "./Field"
 import styles from "./Form.module.css"
 import clsx from "clsx"
 
 export type FormButtonProps = {
   label: string
-  style?: React.CSSProperties
-}
+} & Omit<ButtonProps, "children">
 
 export type FormProps = {
   direction?: "vertical" | "horizontal"
@@ -17,7 +16,7 @@ export type FormProps = {
   cancelProps?: FormButtonProps
   onSubmit?: () => void
   onCancel?: () => void
-}
+} & Omit<React.ComponentProps<"form">, "onSubmit">
 
 export function Form({
   direction = "vertical",
@@ -28,6 +27,8 @@ export function Form({
   cancelProps,
   onSubmit,
   onCancel,
+  className,
+  ...props
 }: FormProps) {
   function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault()
@@ -40,9 +41,20 @@ export function Form({
 
   const isHorizontal = direction === "horizontal"
 
+  function renderButton(
+    { label, ...buttonProps }: FormButtonProps,
+    extraProps: ButtonProps = {},
+  ) {
+    return (
+      <Button disabled={disabled} {...buttonProps} {...extraProps}>
+        {label}
+      </Button>
+    )
+  }
+
   return (
     <div className={styles.root}>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form className={clsx(styles.form, className)} onSubmit={handleSubmit} {...props}>
         <div className={clsx(styles.body, isHorizontal && styles["horizontal-body"])}>
           <div
             className={clsx(styles.fields, isHorizontal && styles["horizontal-fields"])}
@@ -53,13 +65,9 @@ export function Form({
           </div>
           {submitProps && (
             <div className={styles.actions}>
-              <Button type="submit" disabled={disabled} {...submitProps}>
-                {submitProps.label}
-              </Button>
+              {renderButton(submitProps, { type: "submit" })}
               {cancelProps && (
-                <Button disabled={disabled} onClick={handleCancel} {...cancelProps}>
-                  {cancelProps.label}
-                </Button>
+                renderButton(cancelProps, { onClick: handleCancel })
               )}
             </div>
           )}

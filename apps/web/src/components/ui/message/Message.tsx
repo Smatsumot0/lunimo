@@ -8,15 +8,19 @@ export type MessageProps = {
   variant?: MessageVariant
   text?: string
   icon?: React.ReactNode
-}
+} & React.ComponentProps<"div">
 
-export function Message({ variant = "info", text, icon }: MessageProps) {
+export function Message({ variant = "info", text, icon, className, ...props }: MessageProps) {
   if (!text) {
     return null
   }
 
   return (
-    <div role="alert" className={clsx(styles.message, styles[variant])}>
+    <div
+      role="alert"
+      className={clsx(styles.message, styles[variant], className)}
+      {...props}
+    >
       {icon}
       <span>{text}</span>
     </div>
