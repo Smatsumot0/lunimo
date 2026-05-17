@@ -3,7 +3,7 @@ import {
   CycleStatus,
   PeriodForecast,
   PeriodStartControl,
-  WeeklyCalendar,
+  ScrollableDateCalendar,
 } from "./components"
 import { getPeriodLogs } from "@/lib/server"
 import styles from "./HomeScreen.module.css"
@@ -17,10 +17,10 @@ export async function HomeScreen() {
       <Section>
         {/* 生理予定日・カウントダウン */}
         <PeriodForecast logs={periodLogs} />
-        {/* カレンダー */}
-        <WeeklyCalendar />
       </Section>
       <Section>
+        {/* カレンダー */}
+        <ScrollableDateCalendar />
         {/* 開始日 */}
         <PeriodStartControl />
         {/* 体調／服薬 */}
