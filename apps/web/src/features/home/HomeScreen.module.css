@@ -1,4 +1,18 @@
-.home-screen {
+.homeScreen {
   display: grid;
   gap: var(--spacing-md);
+}
+
+.homeScreen > * {
+  min-width: 0;
+}
+
+.actions {
+  display: grid;
+  gap: var(--spacing-md);
+  min-width: 0;
+}
+
+.actions > * {
+  min-width: 0;
 }

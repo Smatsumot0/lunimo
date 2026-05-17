@@ -21,19 +21,19 @@ export async function HomeScreen() {
   const currentPeriodLog = getCurrentPeriodLog(periodLogs)
 
   return (
-    <div className={styles["home-screen"]}>
+    <div className={styles.homeScreen}>
       <Section>
         {/* 生理予定日・カウントダウン */}
         <PeriodForecast logs={periodLogs} />
       </Section>
-      <Section>
+
+      <Section className={styles.actions}>
         {/* カレンダー */}
         <ScrollableDateCalendar />
-        {/* 開始／終了 記録 */}
+        {/* 記録 */}
         <PeriodLogControls currentLog={currentPeriodLog} />
-        {/* 体調／服薬 */}
-        {/* <TodayCondition/> */}
       </Section>
+
       <Section>
         {/* 生理周期 */}
         <CycleStatus logs={periodLogs} />
