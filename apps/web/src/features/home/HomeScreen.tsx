@@ -1,12 +1,11 @@
 import { getPeriodLogs } from "@/lib/server"
 import styles from "./HomeScreen.module.css"
 import { Section } from "@/components"
-import { PeriodLogControls } from "./components/period-log-controls/PeriodLogControls"
 import { PeriodForecast } from "./components/period-forecast/PeriodForecast"
-import { ScrollableDateCalendar } from "./components/scrollable-calendar/ScrollableDateCalendar"
 import { CycleStatus } from "./components/cycle-status/CycleStatus"
 import { CycleHistory } from "./components/cycle-history/CycleHistory"
 import { PeriodLog } from "@/lib"
+import { HomePeriodLogSection } from "./components/home-period-log-section/HomePeriodLogSection"
 
 function getCurrentPeriodLog(logs: PeriodLog[]) {
   return (
@@ -29,9 +28,8 @@ export async function HomeScreen() {
 
       <Section className={styles.actions}>
         {/* カレンダー */}
-        <ScrollableDateCalendar />
         {/* 記録 */}
-        <PeriodLogControls currentLog={currentPeriodLog} />
+        <HomePeriodLogSection currentLog={currentPeriodLog} />
       </Section>
 
       <Section>
