@@ -1,7 +1,20 @@
 .button {
   position: relative;
   cursor: pointer;
-  color: #fff;
+  --control-bg: var(--button-bg, var(--color-glass-control-bg));
+  --control-border-color: var(
+    --button-border-color,
+    var(--color-glass-control-border)
+  );
+  --control-border-right-color: var(
+    --button-border-right-color,
+    var(--color-glass-control-border-soft)
+  );
+  --control-border-bottom-color: var(
+    --button-border-bottom-color,
+    var(--color-glass-control-border-soft)
+  );
+  color: var(--button-color, #fff);
   text-shadow: 0 0 0.75px rgba(0, 0, 0, 0.4);
   padding: var(--spacing-sm) var(--spacing-lg);
   letter-spacing: 2;
@@ -28,23 +41,23 @@
   background: #fff3;
 }
 
-.button.primary {
-  background-color: var(--color-glass-primary-bg);
-  border-color: var(--color-glass-primary-border);
-  border-right-color: var(--color-glass-primary-border-soft);
-  border-bottom-color: var(--color-glass-primary-border-soft);
-  color: var(--color-text-primary);
+.button:where(.primary) {
+  --button-bg: var(--color-glass-primary-bg);
+  --button-border-color: var(--color-glass-primary-border);
+  --button-border-right-color: var(--color-glass-primary-border-soft);
+  --button-border-bottom-color: var(--color-glass-primary-border-soft);
+  --button-color: var(--color-text-primary);
 }
 
-.button.secondary {
-  color: var(--color-text-primary);
+.button:where(.secondary) {
+  --button-color: var(--color-text-primary);
 }
 
-.button.danger {
-  background-color: var(--color-glass-danger-bg);
-  border-color: var(--color-glass-danger-border);
-  border-right-color: var(--color-glass-danger-border-soft);
-  border-bottom-color: var(--color-glass-danger-border-soft);
+.button:where(.danger) {
+  --button-bg: var(--color-glass-danger-bg);
+  --button-border-color: var(--color-glass-danger-border);
+  --button-border-right-color: var(--color-glass-danger-border-soft);
+  --button-border-bottom-color: var(--color-glass-danger-border-soft);
 }
 
 .button.icon-button {
@@ -54,5 +67,9 @@
   height: 44px;
   width: 44px;
   padding: 0;
-  border-radius: 50%;
+  border-radius: var(--radius-pill);
+}
+
+.button.icon-button svg {
+  color: inherit;
 }

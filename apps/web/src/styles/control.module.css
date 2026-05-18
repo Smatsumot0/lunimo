@@ -1,8 +1,15 @@
 .control {
-  background-color: var(--color-glass-control-bg);
-  border: 1px solid var(--color-glass-control-border);
-  border-right-color: var(--color-glass-control-border-soft);
-  border-bottom-color: var(--color-glass-control-border-soft);
+  background-color: var(--control-bg, var(--color-glass-control-bg));
+  border: 1px solid
+    var(--control-border-color, var(--color-glass-control-border));
+  border-right-color: var(
+    --control-border-right-color,
+    var(--color-glass-control-border-soft)
+  );
+  border-bottom-color: var(
+    --control-border-bottom-color,
+    var(--color-glass-control-border-soft)
+  );
   border-radius: var(--radius-lg);
 
   -webkit-backdrop-filter: var(--glass-control-blur);
