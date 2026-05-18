@@ -1,0 +1,7 @@
+export * from "./DropFillIcon"
+export * from "./DropIcon"
+export * from "./MinusIcon"
+export * from "./PillIcon"
+export * from "./PlusIcon"
+export * from "./SettingsIcon"
+export * from "./ShieldXIcon"

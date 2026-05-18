@@ -1,4 +1,4 @@
-import { getPeriodLogs } from "@/lib/server"
+import { getPeriodDayLogs, getPeriodLogs } from "@/lib/server"
 import styles from "./HomeScreen.module.css"
 import { Section } from "@/components"
 import { PeriodForecast } from "./components/period-forecast/PeriodForecast"
@@ -17,6 +17,7 @@ function getCurrentPeriodLog(logs: PeriodLog[]) {
 
 export async function HomeScreen() {
   const periodLogs = await getPeriodLogs()
+  const periodDayLogs = await getPeriodDayLogs()
   const currentPeriodLog = getCurrentPeriodLog(periodLogs)
 
   return (
@@ -29,7 +30,10 @@ export async function HomeScreen() {
       <Section className={styles.actions}>
         {/* カレンダー */}
         {/* 記録 */}
-        <HomePeriodLogSection currentLog={currentPeriodLog} />
+        <HomePeriodLogSection
+          currentLog={currentPeriodLog}
+          dayLogs={periodDayLogs}
+        />
       </Section>
 
       <Section>

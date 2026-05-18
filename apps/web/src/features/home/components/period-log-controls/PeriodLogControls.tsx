@@ -1,7 +1,7 @@
 "use client"
 
 import { ErrorMessage } from "@/components"
-import { PeriodLog } from "@/lib"
+import { PeriodDayLog, PeriodLog } from "@/lib"
 import { PeriodLogActionButtons } from "./components/PeriodLogActionButtons"
 import { PeriodLogStatusControls } from "./components/PeriodLogStatusControls"
 import { usePeriodLogControls } from "./hooks/usePeriodLogControls"
@@ -10,17 +10,29 @@ import styles from "./PeriodLogControls.module.css"
 export type PeriodLogControlsProps = {
   currentLog: PeriodLog | null
   selectedDate: string
+  selectedDayLog: PeriodDayLog | null
 }
 
 export function PeriodLogControls({
   currentLog,
   selectedDate,
+  selectedDayLog,
 }: PeriodLogControlsProps) {
-  const { painVolume, setStartDate, setEndDate, changePainVolume, loading, error } =
-    usePeriodLogControls({
-      currentLog,
-      selectedDate,
-    })
+  const {
+    painVolume,
+    medicineCount,
+    setStartDate,
+    setEndDate,
+    changePainVolume,
+    increaseMedicineCount,
+    decreaseMedicineCount,
+    loading,
+    error,
+  } = usePeriodLogControls({
+    currentLog,
+    selectedDate,
+    selectedDayLog,
+  })
 
   return (
     <section className={styles.root}>
@@ -33,7 +45,10 @@ export function PeriodLogControls({
       />
       <PeriodLogStatusControls
         painVolume={painVolume}
+        medicineCount={medicineCount}
         onPainVolumeChange={changePainVolume}
+        onMedicineIncrease={increaseMedicineCount}
+        onMedicineDecrease={decreaseMedicineCount}
       />
       {error && <ErrorMessage text={error} />}
     </section>

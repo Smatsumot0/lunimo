@@ -1,4 +1,4 @@
-import { ShieldX } from "lucide-react"
+import { ShieldXIcon } from "@/components"
 import { Message } from "./Message"
 
 export type ErrorMessageProps = {
@@ -6,6 +6,6 @@ export type ErrorMessageProps = {
 } & React.ComponentProps<"div">
 
 export function ErrorMessage({ text, ...props }: ErrorMessageProps) {
-  return <Message variant="error" text={text} icon={<ShieldX />} {...props} />
+  return <Message variant="error" text={text} icon={<ShieldXIcon />} {...props} />
 }
 

@@ -1,5 +1,5 @@
 "use client"
-import { IconButton, Logo, Modal, Title } from "@/components"
+import { IconButton, Logo, Modal, SettingsIcon, Title } from "@/components"
 import { signOut } from "next-auth/react"
 import { useState } from "react"
 import styles from "./Header.module.css"
@@ -39,7 +39,7 @@ export function Header() {
       </Title>
       <div className={styles.settings}>
         <IconButton
-          icon={<span className={styles["settings-icon"]}>○</span>}
+          icon={<SettingsIcon height={20} width={20} />}
           variant="secondary"
           className={styles["settings-button"]}
           onClick={handleSettingsToggle}

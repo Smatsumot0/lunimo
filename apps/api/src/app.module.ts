@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { HealthModule } from './health/health.module';
 import { PeriodLogsModule } from './period-logs/period-logs.module';
 import { AuthModule } from 'src/auth/auth.module';
+import { PeriodDayLogsModule } from './period-day-logs/period-day-logs.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AuthModule } from 'src/auth/auth.module';
     AuthModule,
     HealthModule,
     PeriodLogsModule,
+    PeriodDayLogsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

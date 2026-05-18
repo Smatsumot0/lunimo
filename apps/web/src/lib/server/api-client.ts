@@ -71,6 +71,10 @@ export async function request<TResponse = unknown, TBody = unknown>(
   return (await res.text()) as TResponse
 }
 
+export function isFetchFailedError(error: unknown) {
+  return error instanceof TypeError && error.message === "fetch failed"
+}
+
 export const api = {
   get<TResponse>(
     path: string,

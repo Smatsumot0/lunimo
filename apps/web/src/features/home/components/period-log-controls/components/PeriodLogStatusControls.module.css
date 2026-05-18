@@ -16,5 +16,38 @@
 .medicine dd {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
+}
+
+.medicineIcon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: var(--color-text-primary);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.pillIcon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  color: var(--color-navy-500);
+}
+
+.medicineBadge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  place-items: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.25rem;
+  color: var(--color-text-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
 }

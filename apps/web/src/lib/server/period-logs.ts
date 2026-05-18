@@ -1,9 +1,14 @@
 import "server-only"
-import { api } from "./api-client"
+import { api, isFetchFailedError } from "./api-client"
 import { PeriodLog } from "@/lib/types/period"
 import { revalidatePath } from "next/cache"
 
 const PATH = "period-logs"
+
+export type PeriodLogPatch = {
+  startDate?: string
+  endDate?: string
+}
 
 // GET LIST
 export async function getPeriodLogs() {
@@ -15,7 +20,10 @@ export async function getPeriodLogs() {
       throw error
     }
 
-    console.error("[period-logs] failed to fetch logs", error)
+    if (!isFetchFailedError(error)) {
+      console.warn("[period-logs] failed to fetch logs")
+    }
+
     return []
   }
 }
@@ -36,14 +44,8 @@ export async function createPeriodLog(startDate: string) {
 }
 
 // PATCH
-export async function updatePeriodLog(
-  id: string,
-  patch: { startDate?: string; endDate?: string },
-) {
-  await api.patch<void, { startDate?: string; endDate?: string }>(
-    `${PATH}/${id}`,
-    patch,
-  )
+export async function updatePeriodLog(id: string, patch: PeriodLogPatch) {
+  await api.patch<void, PeriodLogPatch>(`${PATH}/${id}`, patch)
   revalidatePath("/home")
 }
 
