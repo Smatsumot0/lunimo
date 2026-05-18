@@ -34,6 +34,23 @@ describe("ScrollableDateCalendar", () => {
     expect(days[0]).not.toHaveClass(styles.active)
   })
 
+  it("adds relative classes to today and the two days around it", () => {
+    jest.useFakeTimers().setSystemTime(new Date(2026, 4, 15))
+
+    render(<ScrollableDateCalendar />)
+
+    const calendar = screen.getByLabelText("カレンダー")
+    const days = within(calendar).getAllByRole("listitem")
+
+    expect(days[8]).toHaveClass(styles.twoDaysBefore)
+    expect(days[9]).toHaveClass(styles.oneDayBefore)
+    expect(days[10]).toHaveClass(styles.today)
+    expect(days[11]).toHaveClass(styles.oneDayAfter)
+    expect(days[12]).toHaveClass(styles.twoDaysAfter)
+    expect(days[7]).not.toHaveClass(styles.twoDaysBefore)
+    expect(days[13]).not.toHaveClass(styles.twoDaysAfter)
+  })
+
   it("restores the original size when a day reaches the left edge", () => {
     jest.useFakeTimers().setSystemTime(new Date(2026, 4, 15))
 

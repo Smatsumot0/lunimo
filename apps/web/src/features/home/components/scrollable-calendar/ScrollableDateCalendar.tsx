@@ -8,6 +8,9 @@ import clsx from "clsx"
 
 const RANGE_DAYS = 10
 const TOTAL_DAYS = RANGE_DAYS * 2 + 1
+const VISIBLE_DAYS = 7
+const ACTIVE_ITEM_WIDTH_RATIO = 1.45
+const ITEM_HEIGHT_RATIO = 1.34
 
 type ScrollableDateCalendarProps = {
   onActiveDateChange?: (date: Date) => void
@@ -35,6 +38,34 @@ function getLeftEdgeIndex(container: HTMLDivElement) {
   }, 0)
 }
 
+function setCalendarItemWidths(container: HTMLDivElement) {
+  const itemWidth =
+    container.clientWidth / (VISIBLE_DAYS - 1 + ACTIVE_ITEM_WIDTH_RATIO)
+  const activeItemWidth = itemWidth * ACTIVE_ITEM_WIDTH_RATIO
+  const itemHeight = itemWidth * ITEM_HEIGHT_RATIO
+  const activeItemHeight = activeItemWidth * ITEM_HEIGHT_RATIO
+
+  if (
+    itemWidth <= 0 ||
+    activeItemWidth <= 0 ||
+    itemHeight <= 0 ||
+    activeItemHeight <= 0
+  ) {
+    return
+  }
+
+  container.style.setProperty("--calendar-item-width", `${itemWidth}px`)
+  container.style.setProperty("--calendar-item-height", `${itemHeight}px`)
+  container.style.setProperty(
+    "--calendar-active-item-width",
+    `${activeItemWidth}px`,
+  )
+  container.style.setProperty(
+    "--calendar-active-item-height",
+    `${activeItemHeight}px`,
+  )
+}
+
 export function ScrollableDateCalendar({
   onActiveDateChange,
 }: ScrollableDateCalendarProps = {}) {
@@ -54,11 +85,8 @@ export function ScrollableDateCalendar({
 
       const list = container.firstElementChild
       const todayItem = list?.children[RANGE_DAYS] as HTMLElement | undefined
-      const itemWidth = container.clientWidth / 7
 
-      if (itemWidth > 0) {
-        container.style.setProperty("--calendar-item-width", `${itemWidth}px`)
-      }
+      setCalendarItemWidths(container)
 
       if (todayItem) {
         container.scrollLeft = todayItem.offsetLeft
@@ -100,7 +128,11 @@ export function ScrollableDateCalendar({
                 className={clsx(
                   styles.item,
                   index === activeIndex && styles.active,
+                  index === RANGE_DAYS - 2 && styles.twoDaysBefore,
+                  index === RANGE_DAYS - 1 && styles.oneDayBefore,
                   isToday(day) && styles.today,
+                  index === RANGE_DAYS + 1 && styles.oneDayAfter,
+                  index === RANGE_DAYS + 2 && styles.twoDaysAfter,
                 )}
               >
                 <div className={styles.date}>
