@@ -1,10 +1,9 @@
 "use client"
 
-import { type UIEvent, useCallback, useMemo, useState } from "react"
-import { addDays, format, isToday } from "date-fns"
-import { ja } from "date-fns/locale"
+import { Fragment, type UIEvent, useCallback, useMemo, useState } from "react"
+import { addDays, format } from "date-fns"
 import styles from "./ScrollableDateCalendar.module.css"
-import clsx from "clsx"
+import { CalendarDateItem } from "./CalendarDateItem"
 
 const RANGE_DAYS = 10
 const TOTAL_DAYS = RANGE_DAYS * 2 + 1
@@ -38,14 +37,26 @@ function getLeftEdgeIndex(container: HTMLDivElement) {
   }, 0)
 }
 
+function getListGap(list: Element | null) {
+  if (!list) {
+    return 0
+  }
+
+  const gap = Number.parseFloat(window.getComputedStyle(list).columnGap)
+  return Number.isFinite(gap) ? gap : 0
+}
+
 function setCalendarItemWidths(container: HTMLDivElement) {
-  const itemWidth =
-    container.clientWidth / (VISIBLE_DAYS - 1 + ACTIVE_ITEM_WIDTH_RATIO)
+  const list = container.firstElementChild
+  const visibleGapWidth = getListGap(list) * (VISIBLE_DAYS - 1)
+  const availableWidth = container.clientWidth - visibleGapWidth
+  const itemWidth = availableWidth / (VISIBLE_DAYS - 1 + ACTIVE_ITEM_WIDTH_RATIO)
   const activeItemWidth = itemWidth * ACTIVE_ITEM_WIDTH_RATIO
   const itemHeight = itemWidth * ITEM_HEIGHT_RATIO
   const activeItemHeight = activeItemWidth * ITEM_HEIGHT_RATIO
 
   if (
+    availableWidth <= 0 ||
     itemWidth <= 0 ||
     activeItemWidth <= 0 ||
     itemHeight <= 0 ||
@@ -56,14 +67,8 @@ function setCalendarItemWidths(container: HTMLDivElement) {
 
   container.style.setProperty("--calendar-item-width", `${itemWidth}px`)
   container.style.setProperty("--calendar-item-height", `${itemHeight}px`)
-  container.style.setProperty(
-    "--calendar-active-item-width",
-    `${activeItemWidth}px`,
-  )
-  container.style.setProperty(
-    "--calendar-active-item-height",
-    `${activeItemHeight}px`,
-  )
+  container.style.setProperty("--calendar-active-item-width", `${activeItemWidth}px`)
+  container.style.setProperty("--calendar-active-item-height", `${activeItemHeight}px`)
 }
 
 export function ScrollableDateCalendar({
@@ -115,38 +120,33 @@ export function ScrollableDateCalendar({
   return (
     <section aria-label="カレンダー">
       <div className={styles.calendar}>
-        <span className={styles.month}>{format(days[activeIndex], "M/")}</span>
         <div
           ref={setInitialScrollPosition}
           className={styles.container}
           onScroll={handleScroll}
         >
           <ul className={styles.list}>
-            {days.map((day, index) => (
-              <li
-                key={format(day, "yyyy-MM-dd")}
-                className={clsx(
-                  styles.item,
-                  index === activeIndex && styles.active,
-                  index === RANGE_DAYS - 2 && styles.twoDaysBefore,
-                  index === RANGE_DAYS - 1 && styles.oneDayBefore,
-                  isToday(day) && styles.today,
-                  index === RANGE_DAYS + 1 && styles.oneDayAfter,
-                  index === RANGE_DAYS + 2 && styles.twoDaysAfter,
-                )}
-              >
-                <div className={styles.date}>
-                  <span className={styles.day}>{format(day, "d")}</span>
-                  <span className={styles.weekday}>
-                    {format(day, "(E)", { locale: ja })}
-                  </span>
-                </div>
-                <div className={styles.status}>
-                  {/* 生理予定日に赤線でしずくアイコン */}
-                  {/* 過去の日付 ＝ 生理日：赤でしずくアイコン、 */}
-                </div>
-              </li>
-            ))}
+            {days.map((day, index) => {
+              const startsMonth =
+                index > 0 && day.getMonth() !== days[index - 1].getMonth()
+
+              return (
+                <Fragment key={format(day, "yyyy-MM-dd")}>
+                  {startsMonth && (
+                    <li className={styles.month}>
+                      <span className={styles.monthLabel}>{format(day, "M月")}</span>
+                    </li>
+                  )}
+                  <CalendarDateItem
+                    activeIndex={activeIndex}
+                    day={day}
+                    index={index}
+                    today={today}
+                    todayIndex={RANGE_DAYS}
+                  />
+                </Fragment>
+              )
+            })}
           </ul>
         </div>
       </div>

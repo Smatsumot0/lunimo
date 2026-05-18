@@ -12,24 +12,27 @@ function mockItemPositions(items: HTMLElement[], itemWidth: number) {
   })
 }
 
+function getDateItems(calendar: HTMLElement) {
+  return Array.from(calendar.querySelectorAll<HTMLElement>("li[data-index]"))
+}
+
 describe("ScrollableDateCalendar", () => {
   afterEach(() => {
     jest.useRealTimers()
   })
 
   it("renders ten days before and after today", () => {
-    jest.useFakeTimers().setSystemTime(new Date(2026, 4, 15))
+    jest.useFakeTimers().setSystemTime(new Date(2026, 4, 30))
 
     render(<ScrollableDateCalendar />)
 
     const calendar = screen.getByLabelText("カレンダー")
-    const days = within(calendar).getAllByRole("listitem")
+    const days = getDateItems(calendar)
 
     expect(days).toHaveLength(21)
-    expect(screen.getByText("5/")).toBeInTheDocument()
-    expect(days[0]).toHaveTextContent("5(火)")
-    expect(days[10]).toHaveTextContent("15(金)")
-    expect(days[20]).toHaveTextContent("25(月)")
+    expect(days[0]).toHaveTextContent("20(水)")
+    expect(days[10]).toHaveTextContent("30(土)")
+    expect(days[20]).toHaveTextContent("9(火)")
     expect(days[10]).toHaveClass(styles.active)
     expect(days[0]).not.toHaveClass(styles.active)
   })
@@ -40,15 +43,27 @@ describe("ScrollableDateCalendar", () => {
     render(<ScrollableDateCalendar />)
 
     const calendar = screen.getByLabelText("カレンダー")
-    const days = within(calendar).getAllByRole("listitem")
+    const days = getDateItems(calendar)
 
-    expect(days[8]).toHaveClass(styles.twoDaysBefore)
-    expect(days[9]).toHaveClass(styles.oneDayBefore)
+    expect(days[8]).toHaveClass(styles.before)
+    expect(days[9]).toHaveClass(styles.before)
     expect(days[10]).toHaveClass(styles.today)
     expect(days[11]).toHaveClass(styles.oneDayAfter)
     expect(days[12]).toHaveClass(styles.twoDaysAfter)
-    expect(days[7]).not.toHaveClass(styles.twoDaysBefore)
+    expect(days[7]).toHaveClass(styles.before)
     expect(days[13]).not.toHaveClass(styles.twoDaysAfter)
+  })
+
+  it("marks the boundary when the visible range crosses into a new month", () => {
+    jest.useFakeTimers().setSystemTime(new Date(2026, 4, 30))
+
+    render(<ScrollableDateCalendar />)
+
+    const calendar = screen.getByLabelText("カレンダー")
+    const days = getDateItems(calendar)
+
+    expect(days[12]).toHaveTextContent("1(月)")
+    expect(screen.getByText("6月")).toBeInTheDocument()
   })
 
   it("restores the original size when a day reaches the left edge", () => {
@@ -75,7 +90,7 @@ describe("ScrollableDateCalendar", () => {
   })
 
   it("notifies the date at the left edge", () => {
-    jest.useFakeTimers().setSystemTime(new Date(2026, 4, 15))
+    jest.useFakeTimers().setSystemTime(new Date(2026, 4, 30))
 
     const handleActiveDateChange = jest.fn()
 
@@ -85,7 +100,7 @@ describe("ScrollableDateCalendar", () => {
     const days = within(calendar).getAllByRole("listitem")
     const container = within(calendar).getByRole("list").parentElement
 
-    expect(handleActiveDateChange).toHaveBeenCalledWith(new Date(2026, 4, 15))
+    expect(handleActiveDateChange).toHaveBeenCalledWith(new Date(2026, 4, 30))
     expect(container).not.toBeNull()
     mockItemPositions(days, 100)
 
@@ -97,11 +112,11 @@ describe("ScrollableDateCalendar", () => {
     fireEvent.scroll(container!)
 
     expect(handleActiveDateChange).toHaveBeenLastCalledWith(
-      new Date(2026, 4, 16),
+      new Date(2026, 4, 31),
     )
   })
 
-  it("shows the active month at the fixed left edge", () => {
+  it("updates the active date when a day reaches the fixed left edge", () => {
     jest.useFakeTimers().setSystemTime(new Date(2026, 4, 25))
 
     render(<ScrollableDateCalendar />)
@@ -110,7 +125,6 @@ describe("ScrollableDateCalendar", () => {
     const days = within(calendar).getAllByRole("listitem")
     const container = within(calendar).getByRole("list").parentElement
 
-    expect(screen.getByText("5/")).toBeInTheDocument()
     expect(container).not.toBeNull()
     mockItemPositions(days, 100)
 
@@ -121,6 +135,6 @@ describe("ScrollableDateCalendar", () => {
 
     fireEvent.scroll(container!)
 
-    expect(screen.getByText("6/")).toBeInTheDocument()
+    expect(days[18]).toHaveClass(styles.active)
   })
 })

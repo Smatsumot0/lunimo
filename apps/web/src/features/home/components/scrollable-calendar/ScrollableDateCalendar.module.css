@@ -2,21 +2,16 @@
   position: relative;
 }
 
-.month {
-  color: var(--color-text-secondary);
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
 .container {
   --calendar-item-width: calc(100% / 7);
   --calendar-item-height: 70px;
   --calendar-active-item-width: calc(100% / 7);
   --calendar-active-item-height: 70px;
   --calendar-icon-slot-height: 18px;
+  --calendar-month-label-height: 18px;
 
   width: 100%;
-  height: var(--calendar-active-item-height);
+  height: calc(var(--calendar-active-item-height) + var(--calendar-month-label-height));
   overflow-x: scroll;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
@@ -30,7 +25,7 @@
 
 .list {
   width: max-content;
-  height: 100%;
+  height: var(--calendar-active-item-height);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -38,9 +33,11 @@
   display: flex;
   flex-wrap: nowrap;
   align-items: flex-end;
+  gap: var(--spacing-xs);
 }
 
 .item {
+  position: relative;
   min-width: 0;
   height: var(--calendar-item-height);
   padding: var(--spacing-xs);
@@ -54,7 +51,7 @@
   flex-direction: column;
   align-items: center;
 
-  border: thin solid var(--color-glass-control-border);
+  border: 1px solid;
   border-radius: var(--radius-sm);
   background-color: var(--color-glass-control-bg);
 
@@ -67,36 +64,45 @@
     font-size 160ms ease;
 }
 
-.item:not(:first-of-type):not(.active) {
-  border-left: none;
-}
-
 .item::before {
   content: "";
   height: 0.2rem;
 }
 
-.item.today::before {
+/*===== 当日／前後日 =====*/
+.today {
+  background: var(--color-mint-500);
+  color: white;
+  border-color: var(--color-mint-600);
+}
+
+.today::before {
   width: 0.4rem;
   height: 0.4rem;
-  background: var(--color-glass-control-border);
+  background: white;
   border-radius: var(--radius-pill);
+  margin-bottom: var(--spacing-xs);
 }
 
-.twoDaysBefore {
-  --calendar-relative-day-offset: -2;
+.before {
+  background: var(--color-neutral-200);
+  border-color: var(--color-neutral-300);
+  color: var(--color-navy-300);
 }
 
-.oneDayBefore {
-  --calendar-relative-day-offset: -1;
+.after {
+  background: var(--color-mint-200);
+  border-color: var(--color-mint-100);
 }
 
 .oneDayAfter {
-  --calendar-relative-day-offset: 1;
+  background: var(--color-mint-400);
+  border-color: var(--color-mint-500);
 }
 
 .twoDaysAfter {
-  --calendar-relative-day-offset: 2;
+  background: var(--color-mint-300);
+  border-color: var(--color-mint-200);
 }
 
 .active {
@@ -134,6 +140,26 @@
 }
 
 .weekday {
-  color: var(--color-text-secondary);
   font-size: 0.72em;
+}
+
+.today .weekday {
+  color: var(--color-background);
+}
+
+/*===== 月 =====*/
+.month {
+  height: 100%;
+  width: var(--spacing-sm);
+  position: relative;
+  color: var(--color-primary);
+  font-size: 0.68rem;
+}
+.monthLabel {
+  display: block;
+  width: max-content;
+  position: absolute;
+  top: var(--calendar-active-item-height);
+  left: 50%;
+  transform: translateX(-50%);
 }

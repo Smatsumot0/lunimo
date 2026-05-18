@@ -13,6 +13,7 @@
 
   --color-input: #f7fbfb;
 
+  /*===== Grass =====*/
   --color-glass-bg: rgba(240, 250, 250, 0.14);
   --color-glass-border: rgba(79, 163, 165, 0.35);
   --color-glass-border-soft: rgba(79, 163, 165, 0.25);
@@ -36,6 +37,28 @@
   --color-glass-danger-border: rgba(217, 107, 107, 0.7);
   --color-glass-danger-border-soft: rgba(217, 107, 107, 0.5);
 
-  --color-weekend-sunday: #e06c75;
-  --color-weekend-saturday: #6c8ae0;
+  /*===== Mint =====*/
+  --color-mint-50: #f4fbfb;
+  --color-mint-100: #e6f6f5;
+  --color-mint-200: #d2eceb;
+  --color-mint-300: #b8dfde;
+  --color-mint-400: #93cecd;
+  --color-mint-500: #68b8b7;
+  --color-mint-600: #4ea2a1;
+  --color-mint-700: #3b8483;
+
+  /*===== Navy =====*/
+  --color-navy-100: #d8dee8;
+  --color-navy-200: #b8c3d4;
+  --color-navy-300: #8d9bb1;
+  --color-navy-400: #5e6d86;
+  --color-navy-500: #34445e;
+  --color-navy-600: #24344b;
+  --color-navy-700: #172536;
+
+  /*===== Neutral =====*/
+  --color-neutral-100: #f5f7f7;
+  --color-neutral-200: #e7ecec;
+  --color-neutral-300: #d7dfdf;
+  --color-neutral-400: #bcc8c8;
 }
